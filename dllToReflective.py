@@ -57,7 +57,6 @@ def patch_stub(offset_file, exit_addr):
 
 
 def main(argv):
-  # Little endian addr
   exit_method = {'thread': '\xE0\x1D\x2A\x0A', 'seh': '\xFE\x0E\x32\xEA', 'process':'\xF0\xB5\xA2\x56'}
   exit_addr = exit_method["thread"]
 
