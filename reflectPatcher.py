@@ -61,7 +61,7 @@ def main(argv):
   exit_addr = exit_method["thread"]
 
   if len(sys.argv) == 1:
-    print bcolors.GREEN + "Usage: python dllToReflective.py payload.dll [thread|seh|process]" + bcolors.ENDC
+    print bcolors.GREEN + "Usage: python reflectPatcher.py payload.dll [thread|seh|process]" + bcolors.ENDC
     sys.exit(1)
 
   if len(sys.argv) > 2:
@@ -86,15 +86,16 @@ def main(argv):
   src = file(dll,'rb')
   payload = src.read()
 
-  # Relfective = Size payload + stub + (payload -stub)
+  # Relfective = Size payload + stub + (payload - stub)
   reflective_payload = struct.pack("<I",len(payload))  + stub + payload[len(stub):]
 
-  dst = open('reflective.dll','wb')
+  patched_dll = 'payload_ready.dll'
+  dst = open(patched_dll,'wb')
   dst.write(reflective_payload)
 
   src.close()
   dst.close()
-  print bcolors.BOLD + "[+] Patched! reflective.dll (%d bytes)." % (len(reflective_payload)) + bcolors.ENDC
+  print bcolors.BOLD + "[+] Patched! %s (%d bytes)." % (patched_dll,len(reflective_payload)) + bcolors.ENDC
 
 if __name__ == '__main__':
   main(sys.argv[1:])
