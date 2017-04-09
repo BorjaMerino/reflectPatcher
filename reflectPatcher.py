@@ -88,6 +88,7 @@ def main(argv):
 
   # Relfective = Size payload + stub + (payload - stub)
   reflective_payload = struct.pack("<I",len(payload))  + stub + payload[len(stub):]
+  print bcolors.GREEN + "[*] Size (4 bytes) prefixed at the beginning of the payload. Cut it off if you are using a HTTP stager!" + bcolors.ENDC
 
   patched_dll = 'payload_ready.dll'
   dst = open(patched_dll,'wb')
